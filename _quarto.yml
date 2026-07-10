@@ -5,6 +5,7 @@ book:
   title: "Building Data as a Package"
   repo-branch: main
   repo-actions: [issue, edit, source]
+  downloads: [pdf]
   site-url: "https://data-pkg-guide.seedcase-project.org"
   repo-url: "https://github.com/seedcase-project/data-pkg-guide"
   date: last-modified
@@ -69,3 +70,9 @@ format:
   seedcase-theme-html:
     include-before-body:
       - "includes/site-counter.html"
+  typst:
+    brand: "_extensions/seedcase-project/seedcase-theme/_brand.yml"
+    papersize: a4
+    margin:
+      x: 2cm
+      y: 2cm
