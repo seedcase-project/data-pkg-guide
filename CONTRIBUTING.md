@@ -1,13 +1,13 @@
 # Contributing
 
-## :bug: Issues and bugs
+## Issues and bugs
 
 The easiest way to contribute is to report issues or bugs that you might find
 while reading through the website. You can do this by creating a
 [new](https://github.com/seedcase-project/data-pkg-guide/issues/new/choose)
 issue on our GitHub repository.
 
-## :pencil2: Adding or modifying content
+## Adding or modifying content
 
 If you would like to contribute content, please check out our
 [guidebook](https://guidebook.seedcase-project.org/) for more specific details
@@ -54,7 +54,7 @@ pull request title to follow that format. That's because we squash merge when
 merging pull requests, so all other commits in the pull request will be squashed
 into one commit.
 
-## :file_folder: Explanation of files and folders
+## Explanation of files and folders
 
 This is a description of some of the files in this repository.
 
