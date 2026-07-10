@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: "121f5b7d-2c7e-4706-acae-2d1a9e371326"
+      url: "https://seedcase-data-pkg-guide.netlify.app"
