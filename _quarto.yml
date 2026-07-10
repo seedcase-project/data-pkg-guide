@@ -25,11 +25,34 @@ book:
     :::
   chapters:
     - index.qmd
-  #  - part: "Sections"
-  #    chapters:
-  #    - path/to/file.qmd
-  # appendices:
-  #  - path/to/file.qmd
+    - part: "Overview"
+      chapters:
+        - docs/index.qmd
+        - docs/layout.qmd
+        - docs/workflow.qmd
+    - part: "Files and folders"
+      chapters:
+        - docs/src.qmd
+        - docs/raw.qmd
+        - docs/staging.qmd
+        - docs/resources.qmd
+        - docs/metadata.qmd
+        - docs/license.qmd
+        - docs/config.qmd
+    - part: "Lifecycle"
+      chapters:
+        - docs/build.qmd
+        - docs/release.qmd
+    - part: "Development"
+      chapters:
+        - docs/setup.qmd
+        - docs/testing.qmd
+        - docs/devex.qmd
+  appendices:
+    - CHANGELOG.md
+    - CONTRIBUTING.md
+    - CODE_OF_CONDUCT.md
+    - LICENSE.md
   tools:
     - icon: github
       href: "https://github.com/seedcase-project/data-pkg-guide"
