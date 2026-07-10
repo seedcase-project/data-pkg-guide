@@ -1,0 +1,9 @@
+gh:
+  org: seedcase-project
+  repo: data-pkg-guide
+
+tagline: "Building Data as a Package"
+
+links:
+  github: "https://github.com/seedcase-project/data-pkg-guide"
+  site: "https://data-pkg-guide.seedcase-project.org"

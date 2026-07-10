@@ -1,0 +1,48 @@
+project:
+  type: book
+
+book:
+  title: "Building Data as a Package"
+  repo-branch: main
+  repo-actions: [issue, edit, source]
+  site-url: "https://data-pkg-guide.seedcase-project.org"
+  repo-url: "https://github.com/seedcase-project/data-pkg-guide"
+  date: last-modified
+  author:
+    - name: "Luke W. Johnston"
+      affiliation: "Steno Diabetes Center Aarhus"
+      orcid: "https://orcid.org/0000-0003-4169-2616"
+  favicon: "_extensions/seedcase-project/seedcase-theme/logos/seedcase/icon.svg"
+  search:
+    type: textbox
+  body-header: |
+    ::: {.callout-note appearance="default"}
+    This guide mostly follows the [diátaxis](https://diataxis.fr/how-to-guides/)
+    "how-to guide" style, though not strictly.  It is also a living and
+    constantly evolving guide that is updated as we learn and refine how we work
+    and develop data packages.  We intend to continually update and release it,
+    so we don't intend that it will ever be in a state of "done".
+    :::
+  chapters:
+    - index.qmd
+  #  - part: "Sections"
+  #    chapters:
+  #    - path/to/file.qmd
+  # appendices:
+  #  - path/to/file.qmd
+  tools:
+    - icon: github
+      href: "https://github.com/seedcase-project/data-pkg-guide"
+      aria-label: "GitHub icon: Source repository"
+    - icon: house
+      href: "https://seedcase-project.org"
+      aria-label: "House icon: Main website for the Seedcase Project"
+  page-footer:
+    center:
+      - text: "Licensed under CC BY 4.0"
+        href: "LICENSE.md"
+
+format:
+  seedcase-theme-html:
+    include-before-body:
+      - "includes/site-counter.html"

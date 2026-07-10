@@ -1,0 +1,45 @@
+{
+  "creators": [
+    {
+      "name": "Johnston, Luke",
+      "affiliation": "Steno Diabetes Center Aarhus",
+      "orcid": "https://orcid.org/0000-0003-4169-2616"
+    }
+  ],
+  "title": "Building data as a package",
+  "description": "The concept of a 'package' to bundle files together for easier management and distribution is a powerful way of approaching building products. This also applies to developing FAIR (findable, accessible, interoperable, and reusable) data and metadata. In this guide, we walk through how to build data up as a package, including how to organize files and folders, how to create and run a pipeline to take raw data into the final form, and how to bundle everything together into a versioned and released package.",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/seedcase-project/data-pkg-guide",
+      "relation": "isSourceOf",
+      "resource_type": "other"
+    },
+    {
+      "identifier": "https://data-pkg-guide.seedcase-project.org",
+      "relation": "isIdenticalTo",
+      "resource_type": "other"
+    }
+  ],
+  "keywords": [
+    "guide",
+    "how-to",
+    "research data engineering",
+    "data engineering",
+    "data packages",
+    "best practices",
+    "collaboration",
+    "workflows",
+    "data package",
+    "data development"
+  ],
+  "communities": [
+    {
+      "identifier": "seedcase-project"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "upload_type": "publication",
+  "publication_type": "other",
+  "language": "eng"
+}
