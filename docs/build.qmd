@@ -1,1 +1,186 @@
-# Build process
+# Build process {#sec-build}
+
+Like other types of packages (e.g. Rust, Python, R), the contents of the Git
+repository *build* the final data package, but aren't the data package itself.
+The repository contains the source of the package, such as the raw data input
+and the code to process the data into the final format. But it isn't the package
+itself. We need to first "compile" the package by running the code to take the
+raw data input and build the final data package.
+
+At a high level, the directories and files involved in the build process are
+(non-relevant files and directories are removed):
+
+```
+<package-name>/
+├── .github/
+│   └── workflows/
+│       └── release.yml # Optional, depends on legal requirements
+├── raw/
+├── staging/
+├── resources/
+├── releases/
+├── src/
+│   └── <package_name>/
+│       ├── __init__.py
+│       └── build.py
+├── <metadata-format>.<extension>
+├── CHANGELOG.md
+├── README.md
+├── LICENSE.md
+└── <build-files>
+```
+
+::: callout-tip
+Why do we "build" a data package? We build it for several reasons.
+
+1. To keep a separation between the source code and raw input data contained
+   within the Git repository and the final data package that is released.
+2. To ensure a reproducible build from input to output.
+3. To keep a history of the changes made to the final data and to version the
+   data package for easier tracking of changes and updates.
+4. To treat the data package as a formal "product" and apply rigorous and robust
+   software engineering and data engineering practices to its development and
+   release.
+:::
+
+## Steps
+
+The initial steps, from the source of the data to staging, is managed by a
+pipeline management tool, which should have its pipeline defined in
+`src/<package_name>/build.py` (though some pipeline tools require a different
+file name). We recommend using
+[pytask](https://pytask-dev.readthedocs.io/en/stable/), which we've found works
+well for developing data packages. All steps must be defined within this tool,
+from pulling the source to raw, to processing the raw data into staging, and to
+processing or extracting any metadata obtained from the source or staged data.
+
+The next steps are managed mainly by
+[Sprout](https://sprout.seedcase-project.org/), which is a tool that handles the
+processing from staging to resources and for (re-)generating the metadata file.
+
+The final steps for building the data package into `.tar` and `.zip` files are
+handled through the [`justfile`](https://just.systems/) file, which would be
+`<build-files>` in the above directory structure. The `justfile` contains
+recipes for each step of the build process and those steps are executed in order
+so that the data package is built.
+
+If the data package is based on open data or on data not covered by legal
+restrictions (e.g. GDPR), the build and release process can be automated through
+the GitHub Actions workflow defined in `.github/workflows/release.yml`.
+
+```{mermaid}
+%%| label: fig-build-process
+%%| fig-cap: "The process for building a data package."
+%%| fig-alt: A flowchart showing the process for building a data package. The
+%%|   process starts with the data from the source being pulled into the `raw/`
+%%|   directory. The data in `raw/` is then processed into `staging/`. The data
+%%|   in `staging/` is then joined into `resources/`. The metadata file is
+%%|   optionally regenerated from the code and checked against the data in
+%%|   `staging/`. Finally, the metadata and resources are bundled into a `.tar`
+%%|   and `.zip` file in `releases/`.
+
+flowchart TB
+    Source["source<br>(e.g., API,<br>database)"] -->|pull| Raw["raw/"]
+    Raw -->|process| Staging["staging/"]
+    Staging -->|join| Resources["resources/"]
+    Resources
+    Metadata["metadata<br>(Optionally<br>regenerated)"]
+    Metadata ---|check| Staging
+    Metadata & Resources -->|bundled| Build["releases/<br>.tar and .zip"]
+```
+
+::: callout-note
+We plan on building a tool to automate and simplify the build step, but for now,
+use the structure and tools that we've set up in our [Template Data
+Package](https://template-data-package.seedcase-project.org/). See @sec-setup
+for details about that.
+:::
+
+::: callout-important
+It's important to note here that only the data in `raw/` and the metadata file
+are saved into [Git LFS](https://git-lfs.github.com/) during the release
+process. No other data artifacts or files are saved in the Git history. This is
+described in more detail in @sec-release.
+:::
+
+### Pull from source to raw
+
+To make sure we're getting the most up-to-date data, the first build step is to
+pull from the various data sources into `raw/`. See @sec-raw and @sec-src for
+details on how the raw data is organised and how the source code pulls the data
+via the pipeline tool. The data is *not* processed in any way when it is pulled
+from the source.
+
+### Raw to staging
+
+After pulling the source data, the data (usually) needs to be processed in some
+way. In particular, the data likely needs to be reorganised so that it ends up
+in the correct resource location. We process the data in `raw/` into `staging/`
+in a one-to-one mapping, so that every `<timestamp>.<extension>` file in `raw/`
+is processed into a `<timestamp>.parquet` file in `staging/`. This enables the
+potential for parallel processing and to maintain a sequence between the two
+directories. Any data in `staging/` must also match the contents of the metadata
+format. This is all done to ensure that the data gets into the final resource
+correctly and without issues. See @sec-staging, @sec-metadata, and @sec-src for
+more details `staging/`.
+
+### Staging to resources
+
+At this stage, Sprout takes over and processes the data from `staging/` into
+`resources/`. All the timestamped files in the individual `staging/` resource
+directories are processed and joined into a single resource file in
+`resources/`. During processing, the data is checked against the metadata. See
+@sec-resources, @sec-metadata, and [Sprout's
+documentation](https://sprout.seedcase-project.org/) for more details on this
+step.
+
+### Metadata (re-)generation (optional)
+
+For data packages using `datapackage.json` as the metadata format, Sprout will
+also (re-)generate the file from the Python code. See @sec-metadata and
+[Sprout's documentation](https://sprout.seedcase-project.org/) for a description
+of this section.
+
+### Build artifacts
+
+At the end, the data package is built into one `<package-name>_<version>.tar`
+file that contains the metadata file (e.g. `datapackage.json`), `LICENSE.md`,
+`README.md`, `CHANGELOG.md`, and the resource files. If the data contains human
+(especially health) data and if it is required to be on secure servers, an
+additional `<package-name>_<version>.zip` file is also built with the same files
+except for the data. This `.zip` file can be uploaded to public archives to
+generate, for example, a [DOI](https://doi.org/) on
+[Zenodo](https://zenodo.org), while the `.tar` file can remain on the server.
+The `.tar` and `.zip` files are saved into a Git ignored `releases/` directory.
+
+<!-- TODO: Do we also want to store the README in the `.tar` file? Any other files? -->
+
+## Development practices
+
+How does this build process impact developing the data package and the
+development practices? Because of this formal build process, there are a few
+things to do differently.
+
+First, you shouldn't manually store any data in the Git history within the Git
+LFS whenever you make changes and submit a pull request. Treat any data pulled
+from sources or processed into staging or resources as temporary. Only the build
+process should store any data or metadata in the Git history.
+
+Related to above, if the metadata format is `datapackage.json`, pull requests
+should *not* contain any changes to it, nor should they contain any changes or
+additions of data in `raw/`, `staging/`, or `resources/`. These files are
+generated during the build process and should not be modified or added directly.
+For `datapackage.json` based metadata, the metadata files within `src/` that
+contain the metadata managed by [Sprout](https://sprout.seedcase-project.org/)
+should be modified instead. For other metadata formats, the metadata file can be
+modified directly and can be saved to the Git history.
+
+Commit messages should still be written in the Conventional Commits format,
+though the specific commit types used are a bit different considering no data,
+or metadata files if it is the `datapackage.json` format, are being modified or
+saved directly. See @sec-release for more details on what commit messages to
+use.
+
+All files in `staging/`, `resources/`, and `releases/` should be ignored by Git
+in the `.gitignore` file, aside from a `.gitkeep` or `README.md` file to keep
+the directory structure.
