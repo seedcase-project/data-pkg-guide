@@ -1,1 +1,1 @@
-# Staging data
+# Staging data {#sec-staging}

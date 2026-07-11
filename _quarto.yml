@@ -29,6 +29,7 @@ book:
     - part: "Overview"
       chapters:
         - docs/index.qmd
+        - docs/tools.qmd
         - docs/layout.qmd
         - docs/workflow.qmd
     - part: "Files and folders"
@@ -42,6 +43,7 @@ book:
         - docs/config.qmd
     - part: "Lifecycle"
       chapters:
+        - docs/ci.qmd
         - docs/build.qmd
         - docs/release.qmd
     - part: "Development"
@@ -49,6 +51,10 @@ book:
         - docs/setup.qmd
         - docs/testing.qmd
         - docs/devex.qmd
+    - part: "Management"
+      chapters:
+        - docs/requests.qmd
+        - docs/subsets.qmd
   appendices:
     - CHANGELOG.md
     - CONTRIBUTING.md
