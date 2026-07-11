@@ -1,1 +1,187 @@
 # Release process {#sec-release}
+
+A release is a snapshot of the data package at a specific point in time. It
+contains the data and metadata in their final state at that point in time and is
+tagged with a specific version number. Releases are how we can track changes
+over time and make it easier to share or distribute the data package to
+researchers in a structured and predictable way.
+
+The release process is dependent on the type of data contained in the data
+package. For data packages that contain human (in particular health or
+sensitive) data, the release process is a bit more complicated than for data
+packages that contain data that doesn't fall under legal restrictions (e.g.
+GDPR). This is because the data must remain on secure servers and can't
+(usually) upload the data to any public repository or archive.
+
+For nonsensitive data, the release process can fairly simple. It can be done
+through a GitHub workflow (e.g. `release.yml`) that runs on a schedule or is
+triggered by specific events (e.g. a specific type of commit, described later in
+this document). The data and metadata can be attached as release artifacts on
+GitHub and/or be uploaded to public archives like [Zenodo](https://zenodo.org/).
+
+For sensitive data that falls under legal regulations, the release process is
+quite different. The data must be on secure servers. Because of that, we can't
+use GitHub workflows nor upload any data for public access. That means we can't
+use a continuous release process like we could with GitHub workflows.
+
+Regardless of the type of data, the steps remain mostly the same. The difference
+is in *where* the release is done and *what triggers* a release. We'll start
+with the triggers.
+
+## Triggers
+
+There are a few ways to trigger a release: manually, on a schedule, or based on
+specific events whenever a change is merged into `main`. Because we practice
+[continuous delivery](https://en.wikipedia.org/wiki/Continuous_delivery), we
+won't go into the manual release process here. So that leaves a schedule-based
+release or a merge/push event. For data that falls under legal regulations, you
+likely will need to use a schedule-based process by running a [cron
+job](https://en.wikipedia.org/wiki/Cron) on the server. For non-private data,
+you can use the merge/push-based process by using a GitHub workflow.
+
+In both cases, the underlying trigger is the same: a release is created based on
+specific text within the commit messages. Using commit messages to trigger a
+release is called [semantic
+release](https://decisions.seedcase-project.org/why-semantic-release-with-cocogitto/),
+which uses [Semantic
+Versioning](https://decisions.seedcase-project.org/why-semver/index.html) and
+[Conventional
+Commits](https://decisions.seedcase-project.org/why-conventional-commits/) as
+its foundation.
+
+### Commits
+
+In order to trigger a release, commits must follow [Conventional
+Commits](https://decisions.seedcase-project.org/why-conventional-commits/) to
+structure the commit messages. The structure of a commit message looks like
+this:
+
+```text
+<type>(optional scope): <optional-emoji> <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+The two main components of this structure for triggering releases are the "type"
+and the "footer". The "type" is the first part of the commit message and is used
+to determine what type of change has been made. The "footer" is the last part of
+the commit message and is used to include a `BREAKING CHANGE` note if the change
+is a breaking change. These two components determine which version to set for
+the release.
+
+Semantic versions are made up of three numbers: `MAJOR.MINOR.PATCH`. The `MAJOR`
+version is incremented when there are breaking changes, the `MINOR` version is
+incremented when new features are added, and the `PATCH` version is incremented
+when fixes are made. For semantic releases, the commit "type" `feat` increases
+the `MINOR` version, while the commit "type" `fix`, `refactor`, or `perf`
+increases the `PATCH`. If there is a breaking change, with either
+`BREAKING CHANGE` in the footer or `<type>!` in the commit message, then the
+`MAJOR` version is increased.
+
+But how do you know which commit type to use? Unlike software development,
+develop data packages is quite different and it is a bit more difficult to
+determine what a "feature", "fix", or "breaking change" is. So we use aspects of
+[Data Package's semantic
+versioning](https://datapackage.org/recipes/data-package-version/).
+
+Breaking changes with the `<type>!` or `BREAKING CHANGE` in the footer format
+*must only* happen after the first stable release of the data package. The first
+stable release is defined as when the data package has all expected or planned
+resources, the metadata has been filled out, and the participants have completed
+the initial, main phases of the study. Before that point, only `MINOR` and
+`PATCH` changes are allowed. This means that the version will remain at
+`0.MINOR.PATCH` until the stable release. Once a stable release has been made, a
+breaking change would be when you:
+
+- Change the data package, resource, or column name or identifier.
+- Remove a resource or column from the data package.
+- Move a column into another resource.
+- Change a column type (e.g. from integer to string).
+- Change a column's constraints to be more restrictive (e.g. reduce the distance
+  between the minimum and maximum values).
+- Remove a participant's data (e.g. they request their data be deleted).
+- Substantially change the meaning of the text in the metadata (e.g. a column's
+  description or a resource's title).
+
+A good guideline to use for `MINOR` (`feat`) commits would be if something *new*
+has been added or expanded on (e.g. text in the metadata). Minor changes with
+the `feat` format would be:
+
+- Add a new resource.
+- Add data, either as rows or columns to an existing resource.
+- Change a column's constraints to be less restrictive (e.g. increase the
+  distance between the minimum and maximum values).
+- Add new text to the metadata, for example, when no metadata existed before.
+
+A good guideline to use for `PATCH` (`fix`, `refactor`, or `perf`) commits would
+be if something has been *corrected* or *refined*. Before the stable release,
+many of the breaking change items above would be considered a patch change, as
+they generally don't add any new content. Patch changes with the `fix`,
+`refactor`, or `perf` commit type would be:
+
+- Correct errors in existing data, like a typo or data entry error. Depending on
+  the severity of the error, this could also be a breaking change.
+- Change the text of the metadata without changing the meaning, for example
+  fixing typos, grammatical errors, or clarifying the text without changing its
+  meaning.
+- Changes to how the data is processed so that it results in better compression
+  or other performance improvements.
+
+## Steps
+
+How that we've covered the triggers, let's go over the actual steps involved in
+the release process, whether it is schedule-based or merge/push-based.
+[Cocogitto](https://decisions.seedcase-project.org/why-semantic-release-with-cocogitto/)
+manages all these steps via the `cog.toml` file.
+
+1. Check the commit history since the last release for any releasable changes.
+   If no releasable changes are found, then no release is created. Otherwise,
+   the process continues.
+
+2. Update the version based on the commit message and update the version in the
+   `pyproject.toml` file using
+   [`uv version`](https://docs.astral.sh/uv/reference/cli/#uv-version). If the
+   metadata format is `datapackage.json`, the version field uses the version in
+   `pyproject.toml` and will be updated automatically when the
+   `datapackage.json` file is (re)generated.
+
+3. Run the build process from start to end. This is described above in the build
+   process in @sec-build.
+
+4. Generate the changelog based on the commit messages since the last release.
+   [git-cliff](https://decisions.seedcase-project.org/why-changelog-with-git-cliff/)
+   is used to generate the changelog.
+
+5. Commit the changes that were made in the `CHANGELOG.md` file, the `raw/` data
+   files, and the `datapackage.json` file, then create a tag for the new version
+   on that commit. Push the commit and the tag to GitHub.
+
+6. Create a new GitHub release on GitHub from the new tag and changelog. Attach
+   the build artifacts to the release. For non-sensitive data, the `.tar` file
+   is attached to the release. For sensitive data, the`.zip` file is added.
+   Either way, the file is renamed to simply `feasibility_data.zip` (or `.tar`),
+   as the tag itself contains the version number.
+
+7. For non-sensitive data, upload the `.tar` file to Zenodo. For sensitive data,
+   upload the `.zip` file to the secure server.
+
+## Practical considerations
+
+As you develop a data package, there are a few things to keep in mind in order
+to make the release process easier.
+
+- We consider the first release to happen once there is code that takes the
+  first resource and its metadata from raw into its final state. The code must
+  also be integrated into the `build.py` file, so that the build pipeline can
+  run automatically.
+
+- Whenever you make a change, either directly to main or through a pull request,
+  you *always* need to make sure commits and pull requests are
+  [atomic](https://decisions.seedcase-project.org/why-atomic-commits-and-prs/).
+  This means that each commit or pull request contains only one *conceptual*
+  change. That's because the commit message (and consequently the changed files
+  in the commit) determine what type of release will be triggered. The commit
+  message will also be added to the changelog, so be aware of the message you
+  use.
