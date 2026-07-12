@@ -30,7 +30,6 @@ book:
     - part: "Overview"
       chapters:
         - docs/index.qmd
-        - docs/tools.qmd
         - docs/layout.qmd
         - docs/workflow.qmd
     - part: "Files and folders"
@@ -49,6 +48,7 @@ book:
         - docs/release.qmd
     - part: "Development"
       chapters:
+        - docs/tools.qmd
         - docs/setup.qmd
         - docs/testing.qmd
         - docs/devex.qmd
