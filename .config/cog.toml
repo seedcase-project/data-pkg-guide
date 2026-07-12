@@ -1,6 +1,7 @@
 from_latest_tag = true
 disable_changelog = true
 disable_bump_commit = true
+ignore_merge_commits = true
 branch_whitelist = ["main"]
 pre_bump_hooks = [
   # Quiet the log output of git-cliff, it is noisy.
