@@ -4,7 +4,7 @@ metadata-files:
   - _metadata.yml
 ---
 
-# {{< meta gh.repo >}}: {{< meta tagline >}}
+# {{< meta tagline >}}
 
 {{< include /includes/_badges.qmd >}}
 

@@ -2,7 +2,8 @@ project:
   type: book
 
 book:
-  title: "Building Data as a Package"
+  title: "Building Data Packages"
+  subtitle: "A guide to engineering and developing research data as a FAIR and tidy data package"
   repo-branch: main
   repo-actions: [issue, edit, source]
   downloads: [pdf]
