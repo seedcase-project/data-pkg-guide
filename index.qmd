@@ -18,9 +18,9 @@ build data warehouses or data lakes/lakehouses, along with many enterprise-level
 tools and platforms to build them. However, these are often overengineered and
 excessively complicated for the needs within science and research. This guide is
 an attempt at providing a practical how-to guide on treating data with a
-"product" mindset. We walk through how to build up data following practices from
-the software package development cycle so that the final "data product" (or
-"data package") is findable, accessible, interoperable, and reusable
+"package" mindset. We walk through how to build up data following practices from
+the software package development cycle so that the final "data package" (or
+"data product") is findable, accessible, interoperable, and reusable
 ([FAIR](https://www.go-fair.org/fair-principles/)) and
 [tidy](https://doi.org/10.18637/jss.v059.i10).
 
@@ -28,15 +28,14 @@ the software package development cycle so that the final "data product" (or
 This guide mostly follows the [diátaxis](https://diataxis.fr/how-to-guides/)
 "how-to guide" style, though not strictly. It is a living and constantly
 evolving guide that is regularly updated as we learn and refine how we work and
-develop data packages. We intend to continually update and releasing it with
+develop data packages. We intend to continually update and release it with
 every update to Zenodo and as GitHub releases. We don't expect this guide to
 ever be considered "done".
 :::
 
-## Who you are as the reader
+## Who you are
 
-We've written these documents considering a few people in mind who we think will
-read the documents:
+We've written these documents with a few types of people in mind:
 
 - **New contributors/team members**: This is our primary audience for this
   guide. If you are new to working with us on the Seedcase Project, these
@@ -49,7 +48,7 @@ read the documents:
 ## Contributing
 
 Check out our [contributing document](CONTRIBUTING.md) for information on how to
-contribute to the project.
+contribute to this guide.
 
 ::: content-hidden
 <!-- TODO: Unhide after having more contributors -->
@@ -68,7 +67,7 @@ the GitHub repository.
 ::: content-hidden
 <!-- TODO: Uncomment after building the PDF and uploading as an artifact -->
 <!-- TODO: Add Zenodo link here once created -->
-The PDF version of the guide is also available in the releases page, as well as
+The PDF version of the guide is available in the releases page, as well as
 the Zenodo archive.
 :::
 
@@ -80,5 +79,5 @@ book format. [GitHub](https://github.com/) hosts the [Git](https://git-scm.com/)
 repository of the material, while [GitHub
 Actions](https://github.com/features/actions) builds and releases the book with
 every change. [Netlify](https://www.netlify.com/) hosts the website and manages
-the domain. The source material is on the
+the domain. The source material is in the
 [`{{< meta gh.repo >}}`]({{< meta links.github >}}) GitHub repository.
