@@ -24,15 +24,13 @@ book:
         - docs/index.qmd
         - docs/layout.qmd
         - docs/workflow.qmd
-    - part: "Files and folders"
+    - part: "Structure"
       chapters:
         - docs/src.qmd
         - docs/raw.qmd
         - docs/staging.qmd
         - docs/resources.qmd
         - docs/metadata.qmd
-        - docs/license.qmd
-        - docs/config.qmd
     - part: "Lifecycle"
       chapters:
         - docs/ci.qmd
@@ -42,10 +40,12 @@ book:
       chapters:
         - docs/tools.qmd
         - docs/setup.qmd
+        - docs/config.qmd
         - docs/testing.qmd
         - docs/devex.qmd
     - part: "Management"
       chapters:
+        - docs/license.qmd
         - docs/requests.qmd
         - docs/subsets.qmd
   appendices:
