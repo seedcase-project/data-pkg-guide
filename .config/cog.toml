@@ -5,9 +5,9 @@ ignore_merge_commits = true
 branch_whitelist = ["main"]
 pre_bump_hooks = [
   # Quiet the log output of git-cliff, it is noisy.
-  "RUST_LOG='none' uvx git-cliff --tag ",
+  "RUST_LOG='none' uvx git-cliff --tag {{ version }}",
   "uvx --from panache-cli panache format CHANGELOG.md --quiet",
-  "git commit CHANGELOG.md -m 'build: 🔖 update version to  [skip ci]'",
+  "git commit CHANGELOG.md -m 'build: 🔖 update version to {{ version }} [skip ci]'",
 ]
 post_bump_hooks = ["git push", "git push --tags"]
 
