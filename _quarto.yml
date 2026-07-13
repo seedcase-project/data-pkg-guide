@@ -17,14 +17,6 @@ book:
   favicon: "_extensions/seedcase-project/seedcase-theme/logos/seedcase/icon.svg"
   search:
     type: textbox
-  body-header: |
-    ::: {.callout-note appearance="default"}
-    This guide mostly follows the [diátaxis](https://diataxis.fr/how-to-guides/)
-    "how-to guide" style, though not strictly.  It is also a living and
-    constantly evolving guide that is updated as we learn and refine how we work
-    and develop data packages.  We intend to continually update and release it,
-    so we don't intend that it will ever be in a state of "done".
-    :::
   chapters:
     - index.qmd
     - part: "Overview"
