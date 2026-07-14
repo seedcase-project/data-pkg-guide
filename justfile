@@ -39,6 +39,7 @@ check-urls:
     --verbose \
     --extensions md,qmd \
     --exclude "github\.com" \
+    --exclude "pre-commit\.ci" \
     --exclude-path "_badges.qmd"
 
 # Format Markdown files

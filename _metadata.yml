@@ -2,7 +2,7 @@ gh:
   org: seedcase-project
   repo: data-pkg-guide
 
-tagline: "Building Data as a Package"
+tagline: "A guide to engineering and developing research data as a FAIR and tidy data package"
 
 links:
   github: "https://github.com/seedcase-project/data-pkg-guide"
