@@ -1,12 +1,12 @@
 # Package layout {#sec-layout}
 
 Like R, Python, Rust, or any other package, a data package must follow a
-specific directory and file layout and naming convention. If
-it doesn't follow these, it isn't a package. In this chapter, we'll provide an overview
-of the data package structure, its files and directories,
-and which chapters in this book cover each of these in detail. Each section
-in this chapter will cover a specific directory in the package. For details
-about the different tools we mention in this chapter, see @sec-tools.
+specific directory and file layout and naming convention. If it doesn't follow
+these, it isn't a package. In this chapter, we'll provide an overview of the
+data package structure, its files and directories, and which chapters in this
+book cover each of these in detail. Each section in this chapter will cover a
+specific directory in the package. For details about the different tools we
+mention in this chapter, see @sec-tools.
 
 While the specific programming language doesn't *strictly* matter, we [recommend
 using
@@ -21,12 +21,12 @@ on using R or Rust for building data packages.
 
 ## Root directory
 
-The root directory, which is the top-level directory of the package, should be named
-after the package itself (`<package-name>`). This directory requires certain files and
-directories to be present. There are only two optional directories: `.github/`
-and `requests/`. See @sec-setup for more information about creating this project
-structure and what recommended files should be in the `<...>` placeholders in
-the tree below.
+The root directory, which is the top-level directory of the package, should be
+named after the package itself (`<package-name>`). This directory requires
+certain files and directories to be present. There are only two optional
+directories: `.github/` and `requests/`. See @sec-setup for more information
+about creating this project structure and what recommended files should be in
+the `<...>` placeholders in the tree below.
 
 ```text
 <package-name>/
@@ -130,11 +130,11 @@ developing and releasing a data package in @sec-config and @sec-devex.
 
 ### `<build-files>`
 
-These are files related to building various aspects of the data package. The main
-build file is `justfile`, which is used to manage all the different build steps.
-Other build-type files include `_quarto.yml` for building a website for the data package. We go
-over some of these files in @sec-build related to the build process and in
-@sec-docs for building the website.
+These are files related to building various aspects of the data package. The
+main build file is `justfile`, which is used to manage all the different build
+steps. Other build-type files include `_quarto.yml` for building a website for
+the data package. We go over some of these files in @sec-build related to the
+build process and in @sec-docs for building the website.
 
 ## `src/` Python code
 
@@ -175,8 +175,8 @@ src/
   processing the metadata and data, respectively.
 - The `<data-source>` and `<data-resource>` directories are used to organize the
   Python code by the source of the data and the eventual resource name.
-- The `common/` directory contains Python code that is used across multiple sources
-  and resources.
+- The `common/` directory contains Python code that is used across multiple
+  sources and resources.
 - The `build.py` file contains the build tasks that are used to build the data
   package.
 - The `core.py` files within the subdirectories contain functions that are used
@@ -259,11 +259,11 @@ cleaned. There should be a one-to-one mapping between the timestamped files in
 `raw/` and the timestamped files in `staging/`. This ensures that the data in
 `staging/` is reproducible and traceable back to the original data in `raw/`,
 and to allow parallel processing of the files from `raw/` to `staging/`. Staging
-is necessary as it gets the data ready to be in the correct format to be included as a data resource
-and can allow metadata to be extracted, if needed, from prepared data rather
-than from raw data. We go over the `staging/` directory in @sec-staging as well
-as partially in @sec-build. The general structure of the `staging/` directory is
-shown below.
+is necessary as it gets the data ready to be in the correct format to be
+included as a data resource and can allow metadata to be extracted, if needed,
+from prepared data rather than from raw data. We go over the `staging/`
+directory in @sec-staging as well as partially in @sec-build. The general
+structure of the `staging/` directory is shown below.
 
 ```text
 staging/
@@ -278,12 +278,12 @@ staging/
 The three differences from `raw/` are that the data in `staging/` is:
 
 - Saved as a [Parquet](https://parquet.apache.org/) file.
-- Organised into directories by the eventual resource name
-  (`<data-resource>`) that the data will be built into. A resource is a single
-  conceptual dataset that has some meaning to the researchers and/or users of
-  the data package. For example, the `redcap` source may have a resource called
-  `demographics` that contains the demographic data from the REDCap database
-  such as age, gender, and date of birth.
+- Organised into directories by the eventual resource name (`<data-resource>`)
+  that the data will be built into. A resource is a single conceptual dataset
+  that has some meaning to the researchers and/or users of the data package. For
+  example, the `redcap` source may have a resource called `demographics` that
+  contains the demographic data from the REDCap database such as age, gender,
+  and date of birth.
 - Not tracked by Git, as the `raw/` data will already be tracked (during release
   only), so downstream files in `staging/` don't need to be tracked as well.
 
@@ -356,14 +356,14 @@ releases/
 ## `docs/` documentation
 
 This directory contains the documentation for the data package. It is not only
-for showing the metadata in a human-friendly way, but also for documenting details
-about the package itself, how it was made, and any contributing or operational
-details. It can also contain information about who uses the data and how it is
-being used (e.g. based on the content in `requests/`). We strongly recommend
-that this documentation is built into a website, using a tool like
-[Quarto](https://quarto.org/). If it is published as a website, some files
-are required to be present in the `docs/` directory, such as `index.qmd` files.
-Of the directories described in this chapter, this is the only one that has no
+for showing the metadata in a human-friendly way, but also for documenting
+details about the package itself, how it was made, and any contributing or
+operational details. It can also contain information about who uses the data and
+how it is being used (e.g. based on the content in `requests/`). We strongly
+recommend that this documentation is built into a website, using a tool like
+[Quarto](https://quarto.org/). If it is published as a website, some files are
+required to be present in the `docs/` directory, such as `index.qmd` files. Of
+the directories described in this chapter, this is the only one that has no
 specific structure to follow. A basic structure for `docs/` might look like the
 following (if rendering the metadata into the website):
 
@@ -378,8 +378,8 @@ docs/
 The `metadata/` directory would contain the converted metadata from
 machine-readable to human-readable, e.g., using our tool
 [Flower](https://flower.seedcase-project.org). Other than that, you are free to
-organise the documentation in any way that makes sense for your
-data package. We'll cover documentation in @sec-docs.
+organise the documentation in any way that makes sense for your data package.
+We'll cover documentation in @sec-docs.
 
 ::: content-hidden
 The tree above was created using the below with this website
@@ -436,11 +436,11 @@ requests/
 This directory may not exist if you don't develop the data package on GitHub (or
 a similar service). We strongly recommend that you do, as it allows for much
 easier collaboration and development of the data package. It also makes it
-easier to build, release, and publish the
-data package, even if only the metadata is published. Other services (like Codeberg or GitLab) have similar features to
-GitHub, but because GitHub is so widely used and popular, we focus on using it
-in this book. We cover this directory in @sec-ci, @sec-devex, and partially in
-@sec-release. The structure of this directory is shown below:
+easier to build, release, and publish the data package, even if only the
+metadata is published. Other services (like Codeberg or GitLab) have similar
+features to GitHub, but because GitHub is so widely used and popular, we focus
+on using it in this book. We cover this directory in @sec-ci, @sec-devex, and
+partially in @sec-release. The structure of this directory is shown below:
 
 ```text
 .github/
@@ -473,16 +473,15 @@ The tree above was created using the below with this website
 
 ## `.config/`
 
-This directory contains all the configuration files used for
-the data package. For example,
-since we recommend using
+This directory contains all the configuration files used for the data package.
+For example, since we recommend using
 [Cocogitto](https://decisions.seedcase-project.org/why-semantic-release-with-cocogitto/)
 and
 [git-cliff](https://decisions.seedcase-project.org/why-changelog-with-git-cliff/)
-for the release process, the configuration files for those tools should be kept in
-this directory. Storing them in this directory keeps the root directory cleaner
-and organises the configuration files in one place. It also follows the XDG
-[`.config/`](https://dot-config.github.io) specification. We go over the
+for the release process, the configuration files for those tools should be kept
+in this directory. Storing them in this directory keeps the root directory
+cleaner and organises the configuration files in one place. It also follows the
+XDG [`.config/`](https://dot-config.github.io) specification. We go over the
 `.config/` directory in several sections, such as @sec-devex and @sec-config.
 The directory structure is pretty simple, as it is a flat (non-nested) directory
 with only configuration files:
