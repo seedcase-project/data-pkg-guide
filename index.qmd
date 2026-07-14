@@ -28,9 +28,9 @@ the software package development cycle so that the final "data package" (or
 This guide mostly follows the [diátaxis](https://diataxis.fr/how-to-guides/)
 "how-to guide" style, though not strictly. It is a living and constantly
 evolving guide that is regularly updated as we learn and refine how we work and
-develop data packages. We intend to continually update and release it with
-every update to Zenodo and as GitHub releases. We don't expect this guide to
-ever be considered "done".
+develop data packages. We intend to continually update and release it with every
+update to Zenodo and as GitHub releases. We don't expect this guide to ever be
+considered "done".
 :::
 
 ## Who you are
@@ -67,8 +67,8 @@ the GitHub repository.
 ::: content-hidden
 <!-- TODO: Uncomment after building the PDF and uploading as an artifact -->
 <!-- TODO: Add Zenodo link here once created -->
-The PDF version of the guide is available in the releases page, as well as
-the Zenodo archive.
+The PDF version of the guide is available in the releases page, as well as the
+Zenodo archive.
 :::
 
 ## How the website is made
