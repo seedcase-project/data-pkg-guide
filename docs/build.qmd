@@ -181,7 +181,7 @@ modified directly and can be saved to the Git history.
 Commit messages should still be written in the Conventional Commits format,
 though the specific commit types used are a bit different considering no data,
 or metadata files if it is the `datapackage.json` format, are being modified or
-saved directly. See @sec-release for more details on what commit messages to
+saved directly. See @sec-release for more details on how Conventional Commits are used in the release process and what commit messages to
 use.
 
 All files in `staging/`, `resources/`, and `releases/` should be ignored by Git
