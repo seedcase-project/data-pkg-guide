@@ -1,6 +1,6 @@
 
 
-# data-pkg-guide: Building Data as a Package
+# A guide to engineering and developing research data as a FAIR and tidy data package
 
 <!-- TODO: Include DOI after uploading -->
 

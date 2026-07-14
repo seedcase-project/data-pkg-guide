@@ -2,7 +2,8 @@ project:
   type: book
 
 book:
-  title: "Building Data as a Package"
+  title: "Building Data Packages"
+  subtitle: "A guide to engineering and developing research data as a FAIR and tidy data package"
   repo-branch: main
   repo-actions: [issue, edit, source]
   downloads: [pdf]
@@ -16,31 +17,20 @@ book:
   favicon: "_extensions/seedcase-project/seedcase-theme/logos/seedcase/icon.svg"
   search:
     type: textbox
-  body-header: |
-    ::: {.callout-note appearance="default"}
-    This guide mostly follows the [diátaxis](https://diataxis.fr/how-to-guides/)
-    "how-to guide" style, though not strictly.  It is also a living and
-    constantly evolving guide that is updated as we learn and refine how we work
-    and develop data packages.  We intend to continually update and release it,
-    so we don't intend that it will ever be in a state of "done".
-    :::
   chapters:
     - index.qmd
     - part: "Overview"
       chapters:
         - docs/index.qmd
-        - docs/tools.qmd
         - docs/layout.qmd
         - docs/workflow.qmd
-    - part: "Files and folders"
+    - part: "Structure"
       chapters:
         - docs/src.qmd
         - docs/raw.qmd
         - docs/staging.qmd
         - docs/resources.qmd
         - docs/metadata.qmd
-        - docs/license.qmd
-        - docs/config.qmd
     - part: "Lifecycle"
       chapters:
         - docs/ci.qmd
@@ -48,11 +38,14 @@ book:
         - docs/release.qmd
     - part: "Development"
       chapters:
+        - docs/tools.qmd
         - docs/setup.qmd
+        - docs/config.qmd
         - docs/testing.qmd
         - docs/devex.qmd
     - part: "Management"
       chapters:
+        - docs/license.qmd
         - docs/requests.qmd
         - docs/subsets.qmd
   appendices:
