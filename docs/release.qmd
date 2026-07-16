@@ -8,10 +8,13 @@ structured and predictable way.
 
 The release process is dependent on the type of data contained in the data
 package. For data packages that contain human (in particular health or
-sensitive) data, the release process is a bit more complicated than for data
-packages that contain data that doesn't fall under legal restrictions (e.g.
-GDPR). This is because the data must remain on secure servers and can't
-(usually) be uploaded to any public repository or archive.
+sensitive) data, the release process is a bit more complicated, as will be
+explained later, than for data packages that contain data that doesn't fall
+under legal restrictions (e.g. GDPR). This is because the data must remain on
+secure servers and can't (usually) be uploaded to any public repository or
+archive. That means we can't use services like GitHub workflows nor upload any
+data for public access, so we can't use a continuous release process (or at
+least it is more difficult to).
 
 <!-- TODO: link to an example `release.yml` file -->
 For nonsensitive data, the release process is fairly simple. It can be done
@@ -19,11 +22,6 @@ through a GitHub workflow (e.g. `release.yml`) that runs on a schedule or is
 triggered by specific events (e.g. a specific type of commit, described later in
 this document). The data and metadata can be attached as release artifacts on
 GitHub and/or be uploaded to public archives like [Zenodo](https://zenodo.org/).
-
-For sensitive data that falls under legal regulations, the release process is a
-bit different, as will be explained later. Since the data must be on secure
-servers, we can't use GitHub workflows nor upload any data for public access.
-That means we can't use a continuous release process like a GitHub workflow.
 
 Regardless of the type of data, the general steps remain mostly the same with
 some notable differences. The difference is in *where* the release is done (the
