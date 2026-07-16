@@ -13,6 +13,7 @@ packages that contain data that doesn't fall under legal restrictions (e.g.
 GDPR). This is because the data must remain on secure servers and can't
 (usually) be uploaded to any public repository or archive.
 
+<!-- TODO: link to an example `release.yml` file -->
 For nonsensitive data, the release process is fairly simple. It can be done
 through a GitHub workflow (e.g. `release.yml`) that runs on a schedule or is
 triggered by specific events (e.g. a specific type of commit, described later in
