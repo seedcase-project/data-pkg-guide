@@ -1,8 +1,6 @@
 # Package layout {#sec-layout}
 
-Like R, Python, Rust, or any other package, a data package must follow a
-specific directory and file layout and naming convention. If it doesn't follow
-these, it isn't a package. In this chapter, we'll provide an overview of the
+Like software packages in ecosystems such as R, Python, and Rust, a data package is defined by a packaging specification. To be a conforming data package, it must follow that specification's required file structure, metadata, and naming conventions. In this chapter, we'll provide an overview of the
 data package structure, its files and directories, and which chapters in this
 book cover each of these in detail. Each section in this chapter will cover a
 specific directory in the package. For details about the different tools we
@@ -90,7 +88,7 @@ will depend on the specific metadata standard being used. For example, a
 `datapackage.json` file for the [Data Package](https://datapackage.org). While
 `datapackage.json` shares the name with "data package", they are not the same
 thing. The Data Package Standard (or specification) is a structured format to
-storing metadata about data, but is not involved in how the data package itself
+store metadata about data, but is not involved in how the data package itself
 is built and developed. This file is covered in more detail in @sec-metadata.
 
 ### `pyproject.toml`
@@ -99,14 +97,14 @@ This contains the Python project configuration for the package, such as package
 dependencies, name, authors, version, and other metadata. This file is required
 for Python packages, which a data package is structured as to take advantage of
 Python packaging tools and workflows. In @sec-src and @sec-config we'll describe
-this file more and how to use it.
+this file and how to use it in more detail.
 
 ### `README.md`, `LICENSE.md`, and `CHANGELOG.md`
 
 These are common files that are found in many open source projects, especially
 in software projects.
 
-- The `README.md` file, as it name suggests, is the first file any person should
+- The `README.md` file, as the name suggests, is the first file any person should
   read when checking out the project.
 
 - The `LICENSE.md` file contains the license for the project, which is required
@@ -124,8 +122,8 @@ in software projects.
 
 These are configuration files that may be required for the package, such as
 `.gitignore`, `.editorconfig`, or `.zenodo.json`/`CITATION.cff` that are used
-mostly by external tools (for those that can't store the config files in
-`.config/`). We go over different types of config files that we recommend when
+mostly by external tools that can't store the config files in
+`.config/`. We go over different types of config files that we recommend when
 developing and releasing a data package in @sec-config and @sec-devex.
 
 ### `<build-files>`
