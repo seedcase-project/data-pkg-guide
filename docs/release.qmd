@@ -21,13 +21,14 @@ this document). The data and metadata can be attached as release artifacts on
 GitHub and/or be uploaded to public archives like [Zenodo](https://zenodo.org/).
 
 For sensitive data that falls under legal regulations, the release process is a
-bit different. Since the data must be on secure servers, we can't use GitHub
-workflows nor upload any data for public access. That means we can't use a
-continuous release process like a GitHub workflow.
+bit different, as will be explained later. Since the data must be on secure
+servers, we can't use GitHub workflows nor upload any data for public access.
+That means we can't use a continuous release process like a GitHub workflow.
 
-Regardless of the type of data, the steps remain mostly the same. The difference
-is in *where* the release is done and *what triggers* a release. We'll start
-with the triggers.
+Regardless of the type of data, the general steps remain mostly the same with
+some notable differences. The difference is in *where* the release is done (the
+computing environment where the release process is executed, e.g. GitHub or on a
+secure server) and *what triggers* a release. We'll start with the triggers.
 
 ## Triggers
 
@@ -157,8 +158,11 @@ release number:
    `pyproject.toml` and will be updated automatically when the
    `datapackage.json` file is (re)generated.
 
-3. Run the build process from start to end. This is described above in the build
-   process in @sec-build.
+3. Run the build process from start to end. This is described in the build
+   process in @sec-build. The main artifacts of the build process are the
+   `<package-name>_<version>.tar` file for sensitive and nonsensitive data and
+   the `<package-name>_<version>.zip` for an artifact that can be publicly
+   uploaded when the data is sensitive.
 
 4. Generate the changelog based on the commit messages since the last release.
    [git-cliff](https://decisions.seedcase-project.org/why-changelog-with-git-cliff/)
@@ -169,13 +173,13 @@ release number:
    on that commit. Push the commit and the tag to GitHub.
 
 6. Create a new GitHub release on GitHub from the new tag and changelog. Attach
-   the build artifacts to the release. For non-sensitive data, the `.tar` file
-   is attached to the release. For sensitive data, the`.zip` file is added.
-   Either way, the file is renamed to simply `feasibility_data.zip` (or `.tar`),
-   as the tag itself contains the version number.
+   the build artifacts to the release. For nonsensitive data, the `.tar` file is
+   attached to the release. For sensitive data, the`.zip` file is added. Either
+   way, the file is renamed to simply `<package-name>.zip` (or
+   `<package-name>.tar`), as the tag itself contains the version number.
 
-7. For non-sensitive data, upload the `.tar` file to Zenodo. For sensitive data,
-   upload the `.zip` file to the secure server.
+7. For nonsensitive data, upload the `<package-name>.tar` file to Zenodo. For
+   sensitive data, upload the `<package-name>.zip` file to the secure server.
 
 ## Practical considerations
 
