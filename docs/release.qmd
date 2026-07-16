@@ -2,9 +2,9 @@
 
 A release is a snapshot of the data package at a specific point in time. It
 contains the data and metadata in their final state at that point in time and is
-tagged with a specific version number. Releases are how we track changes
-over time and make it easier to share or distribute data packages to
-researchers in a structured and predictable way.
+tagged with a specific version number. Releases are how we track changes over
+time and make it easier to share or distribute data packages to researchers in a
+structured and predictable way.
 
 The release process is dependent on the type of data contained in the data
 package. For data packages that contain human (in particular health or
@@ -19,10 +19,10 @@ triggered by specific events (e.g. a specific type of commit, described later in
 this document). The data and metadata can be attached as release artifacts on
 GitHub and/or be uploaded to public archives like [Zenodo](https://zenodo.org/).
 
-For sensitive data that falls under legal regulations, the release process is
-a bit different. Since the data must be on secure servers, we can't
-use GitHub workflows nor upload any data for public access. That means we can't
-use a continuous release process like a GitHub workflow.
+For sensitive data that falls under legal regulations, the release process is a
+bit different. Since the data must be on secure servers, we can't use GitHub
+workflows nor upload any data for public access. That means we can't use a
+continuous release process like a GitHub workflow.
 
 Regardless of the type of data, the steps remain mostly the same. The difference
 is in *where* the release is done and *what triggers* a release. We'll start
@@ -68,21 +68,24 @@ The two main components of this structure for triggering releases are the "type"
 and the "footer". The "type" is the first part of the commit message and is used
 to determine what type of change has been made. The "footer" is the last part of
 the commit message and is used to include a `BREAKING CHANGE` note if the change
-is a breaking change, i.e., a change that disrupt the compatibility of existing code with newer versions. A breaking change can also be triggered by appending a "!" to the commit "type". These two components determine which version to set for
-the release.
+is a breaking change, i.e., a change that disrupt the compatibility of existing
+code with newer versions. A breaking change can also be triggered by appending a
+"!" to the commit "type". These two components determine which version to set
+for the release.
 
-Semantic versions are made up of three numbers: `MAJOR.MINOR.PATCH`, e.g., `0.1.2`. The `MAJOR`
-version is incremented when there are breaking changes, the `MINOR` version is
-incremented when new features are added, and the `PATCH` version is incremented
-when fixes are made. For semantic releases, the commit "type" `feat` increases
-the `MINOR` version, while the commit "type" `fix`, `refactor`, or `perf`
-increases the `PATCH`. If there is a breaking change, with either
-`BREAKING CHANGE` in the footer or `<type>!` in the commit message, then the
-`MAJOR` version is increased.
+Semantic versions are made up of three numbers: `MAJOR.MINOR.PATCH`, e.g.,
+`0.1.2`. The `MAJOR` version is incremented when there are breaking changes, the
+`MINOR` version is incremented when new features are added, and the `PATCH`
+version is incremented when fixes are made. For semantic releases, the commit
+"type" `feat` increases the `MINOR` version, while the commit "type" `fix`,
+`refactor`, or `perf` increases the `PATCH`. If there is a breaking change, with
+either `BREAKING CHANGE` in the footer or `<type>!` in the commit message, then
+the `MAJOR` version is increased.
 
 But how do you know which commit type to use? Unlike software development,
-developing data packages is quite different and it can be a bit more difficult to
-determine what a "feature", "fix", or "breaking change" is. To help determine the commit "type", we use aspects of
+developing data packages is quite different and it can be a bit more difficult
+to determine what a "feature", "fix", or "breaking change" is. To help determine
+the commit "type", we use aspects of
 
 [Data Package's semantic
 versioning](https://datapackage.org/recipes/data-package-version/).
@@ -91,11 +94,11 @@ Breaking changes with the `<type>!` or `BREAKING CHANGE` in the footer format
 *must only* happen after the first stable release of the data package. The first
 stable release is defined as when the data package has all expected or planned
 resources, the metadata has been filled out, and the participants have completed
-resources, the metadata has been filled out, and data has been collected for
-the initial, main phases of the study. Before that point, only `MINOR` and
-`PATCH` changes are allowed. This means that the version will remain at
-`0.MINOR.PATCH` until the stable release. Once a stable release has been made, a
-breaking change would occur if you:
+resources, the metadata has been filled out, and data has been collected for the
+initial, main phases of the study. Before that point, only `MINOR` and `PATCH`
+changes are allowed. This means that the version will remain at `0.MINOR.PATCH`
+until the stable release. Once a stable release has been made, a breaking change
+would occur if you:
 
 - Change the data package, resource, or column name or identifier.
 - Remove a resource or column from the data package.
@@ -108,14 +111,15 @@ breaking change would occur if you:
   description or a resource's title).
 
 A good guideline to use for `MINOR` (`feat`) commits would be if something *new*
-has been added or expanded on. Minor changes with
-the `feat` format would be if you:
+has been added or expanded on. Minor changes with the `feat` format would be if
+you:
 
 - Add a new resource.
 - Add data, either new rows or columns to an existing resource.
 - Change a column's constraints to be less restrictive (e.g. increase the
   distance between the minimum and maximum values).
-- Add new text to the metadata, for example, when no metadata existed before, but not correcting existing metadata (see `PATCH` below).
+- Add new text to the metadata, for example, when no metadata existed before,
+  but not correcting existing metadata (see `PATCH` below).
 
 A good guideline to use for `PATCH` (`fix`, `refactor`, or `perf`) commits would
 be if something has been *corrected* or *refined*. Before the stable release,
@@ -138,7 +142,8 @@ the release process, whether it is schedule-based or merge/push-based.
 [Cocogitto](https://decisions.seedcase-project.org/why-semantic-release-with-cocogitto/)
 manages all these steps via the `cog.toml` file.
 
-The release process runs the following steps to check and potentially update the release number:
+The release process runs the following steps to check and potentially update the
+release number:
 
 1. Check the commit history since the last release for any releasable changes.
    If no releasable changes are found, then no release is created. Otherwise,
