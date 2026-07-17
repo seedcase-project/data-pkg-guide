@@ -1,1 +1,542 @@
 # Package layout {#sec-layout}
+
+Like software packages in ecosystems such as R, Python, and Rust, a data package
+is defined by a packaging specification. To be a conforming data package, it
+must follow that specification's required file structure, metadata, and naming
+conventions. In this chapter, we'll provide an overview of the data package
+structure, its files and directories, and which chapters in this book cover each
+of these in detail. Each section in this chapter will cover a specific directory
+in the package. For details about the different tools we mention in this
+chapter, see @sec-tools.
+
+While the specific programming language doesn't *strictly* matter, we [use
+Python](https://decisions.seedcase-project.org/why-python-for-data-engineering/)
+for developing data packages. Because of that, we'll use Python in the guide,
+which means that there are some files and directories that are specific to and
+required for Python projects.
+
+::: callout-note
+As we learn about and refine how to build data packages, we may include sections
+on using R or Rust for building data packages.
+:::
+
+## Root directory
+
+The root directory, which is the top-level directory of the package, should be
+named after the package itself (`<package-name>`). This directory requires
+certain files and directories to be present. There are only two optional
+directories: `.github/` and `requests/`. See @sec-setup for more information
+about creating this project structure and what recommended files should be in
+the `<...>` placeholders in the tree below.
+
+```text
+<package-name>/
+├── .github/ # Optional
+├── .config/
+├── src/
+├── raw/
+├── staging/
+├── resources/
+├── releases/
+├── requests/ # Optional
+├── docs/
+├── <metadata-format>.<extension>
+├── pyproject.toml
+├── README.md
+├── LICENSE.md
+├── CHANGELOG.md
+├── <root-config-files>
+└── <build-files>
+```
+
+We'll go over each directory below in individual sections, so we'll only
+describe the `<...>` files in the next subsections.
+
+::: callout-important
+A data package can have many more and different files and directories than those
+listed above, however these are only the required and/or common files and
+directories to effectively develop a data package.
+:::
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+<package-name>/
+  .github/
+  .config/
+  src/
+  raw/
+  staging/
+  resources/
+  releases/
+  requests/
+  docs/
+  <metadata-format>.<extension>
+  pyproject.toml
+  README.md
+  LICENSE.md
+  CHANGELOG.md
+  <root-config-files>
+  <build-files>
+```
+:::
+
+### `<metadata-format>.<extension>`
+
+This is the metadata file for the package, which contains metadata about the
+package itself as well as the data contained within it. The format and extension
+will depend on the specific metadata standard being used. For example, a
+`datapackage.json` file for the [Data Package](https://datapackage.org). While
+`datapackage.json` shares the name with "data package", they are not the same
+thing. The Data Package Standard (or specification) is a structured format to
+store metadata about data, but is not involved in how the data package itself is
+built and developed. This file is covered in more detail in @sec-metadata.
+
+### `pyproject.toml`
+
+This contains the Python project configuration for the package, such as package
+dependencies, name, authors, version, and other metadata. This file is required
+for Python packages, which a data package is structured as to take advantage of
+Python packaging tools and workflows. In @sec-src and @sec-config we'll describe
+this file and how to use it in more detail.
+
+### `README.md`, `LICENSE.md`, and `CHANGELOG.md`
+
+These are common files that are found in many open source projects, especially
+in software projects.
+
+- The `README.md` file, as the name suggests, is the first file any person
+  should read when checking out the project.
+
+- The `LICENSE.md` file contains the license for the project, which is required
+  in order for other people to use the project. In @sec-license, we describe how
+  to choose a license for your project, as data packages require different
+  licensing compared to code or text.
+
+- The `CHANGELOG.md` file contains a list of changes made to the project within
+  each version update, which can be useful for users of the data package to
+  learn what things changed in specific versions. This file is covered in more
+  detail in @sec-build and @sec-release, as it is part of the release process
+  for the data package.
+
+### `<root-config-files>`
+
+These are configuration files that may be required for the package, such as
+`.gitignore`, `.editorconfig`, or `.zenodo.json`/`CITATION.cff` that are used
+mostly by external tools that can't store the config files in `.config/`. We go
+over different types of config files that we recommend when developing and
+releasing a data package in @sec-config and @sec-devex.
+
+### `<build-files>`
+
+These are files related to building various aspects of the data package. The
+main build file is `justfile`, which is used to manage all the different build
+steps. Other build-type files include `_quarto.yml` for building a website for
+the data package. We go over some of these files in @sec-build related to the
+build process and in @sec-docs for building the website.
+
+## `src/` Python code
+
+Aside from the `pyproject.toml` file, the `src/` directory is where all the
+Python and other build-related source files are kept. The structure of this
+directory resembles a Python package, with several `__init__.py` files to inform
+Python that they should be treated as part of the Python project. While we go
+over the `src/` directory in more detail in @sec-src, the general structure of
+this directory is shown below.
+
+```text
+src/
+└── <package_name>/
+    ├── <metadata>/
+    │   ├── __init__.py
+    │   ├── core.py
+    │   └── <data-source>/
+    │       ├── __init__.py
+    │       ├── <data-resource>.py
+    │       └── core.py
+    ├── <data>/
+    │   ├── __init__.py
+    │   ├── core.py
+    │   └── <data-source>/
+    │       ├── __init__.py
+    │       ├── <data-resource>.py
+    │       └── core.py
+    ├── common/
+    │   └── __init__.py
+    ├── __init__.py
+    └── build.py
+```
+
+- The `<package_name>` is the name of the Python package that is used to build
+  the data package, which is usually the same as the name of the data package
+  itself (using `_` instead of `-`).
+- The `<metadata>` and `<data>` directories contain the Python code for
+  processing the metadata and data, respectively.
+- The `<data-source>` and `<data-resource>` directories are used to organize the
+  Python code by the source of the data and the eventual resource name.
+- The `common/` directory contains Python code that is used across multiple
+  sources and resources.
+- The `build.py` file contains the build tasks that are used to build the data
+  package.
+- The `core.py` files within the subdirectories contain functions that are used
+  across specific sources and/or resources.
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+src/
+  <package_name>/
+    <metadata>/
+      __init__.py
+      core.py
+      <data-source>/
+        __init__.py
+        <data-resource>.py
+        core.py
+    <data>/
+      __init__.py
+      core.py
+      <data-source>/
+        __init__.py
+        <data-resource>.py
+        core.py
+    common/
+      __init__.py
+    __init__.py
+    build.py
+```
+:::
+
+## `raw/` data
+
+The `raw/` folder contains the original (unprocessed) data files from their
+original source locations (e.g. database or
+[ftp](https://en.wikipedia.org/wiki/File_Transfer_Protocol) server) that will be
+processed and built into the data package. We strongly recommend that the data
+in `raw/` is not modified in any way, aside from renaming the files and
+compressing them for storage purposes. Keeping them unprocessed and unmodified
+ensures a clear and reproducible history of how the data was built into the data
+package. We go over the `raw/` directory in @sec-raw and @sec-src. The general
+structure of the `raw/` directory is shown below.
+
+```text
+raw/
+└── <data-source>/
+    ├── <timestamp>.<extension>
+    └── <timestamp>/
+        └── <hash-id>.<extension> # For, e.g., image files
+```
+
+Raw data is organised into directories by the source of the data
+(`<data-source>`), for example, from [REDCap](https://www.project-redcap.org/)
+as `redcap` or [Garmin wearables](https://www.garmin.com/en-US/) as `garmin`.
+Within each source, the data is saved to files or directories with the timestamp
+of when the data was downloaded from the source as its name. The timestamp is in
+the ISO 8601 format (`YYYY-MM-DDTHHMMSSZ`), which is a standard format for
+representing date and time. The details of whether to save to a file or
+directory are covered in @sec-raw.
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+raw/
+  <data-source>/
+    <timestamp>.<extension>
+    <timestamp>/
+      <hash-id>.<extension> # For, e.g., image files
+```
+:::
+
+## `staging/` data
+
+Data in `staging/` is all the data in `raw/` that has been processed and
+cleaned. There should be a one-to-one mapping between the timestamped files in
+`raw/` and the timestamped files in `staging/`. This ensures that the data in
+`staging/` is reproducible and traceable back to the original data in `raw/`,
+and to allow parallel processing of the files from `raw/` to `staging/`. Staging
+is necessary as it gets the data ready to be in the correct format to be
+included as a data resource and can allow metadata to be extracted, if needed,
+from prepared data rather than from raw data. We go over the `staging/`
+directory in @sec-staging as well as partially in @sec-build. The general
+structure of the `staging/` directory is shown below.
+
+```text
+staging/
+├── .gitignore # Don't track staging data
+└── <data-source>/
+    └── <data-resource>/
+        ├── <timestamp>/
+        │   └── <hash-id>.<extension> # For, e.g., image files
+        └── <timestamp>.parquet
+```
+
+The three differences from `raw/` are that the data in `staging/` is:
+
+- Saved as a [Parquet](https://parquet.apache.org/) file.
+- Organised into directories by the eventual resource name (`<data-resource>`)
+  that the data will be built into. A resource is a single conceptual dataset
+  that has some meaning to the researchers and/or users of the data package. For
+  example, the `redcap` source may have a resource called `demographics` that
+  contains the demographic data from the REDCap database such as age, gender,
+  and date of birth.
+- Not tracked by Git, as the `raw/` data will already be tracked (during release
+  only), so downstream files in `staging/` don't need to be tracked as well.
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+staging/
+  .gitignore # Don't track staging data
+  <data-source>/
+    <data-resource>/
+      <timestamp>/
+        <hash-id>.<extension> # For, e.g., image files
+      <timestamp>.parquet
+```
+:::
+
+## `resources/` data
+
+The `resources/` directory contains the final data resources in Parquet format
+that are built from the data in `staging/`. The data in `resources/` is what is
+included in the data package and is what users of the data package will use.
+Each resource either has:
+
+- An individual Parquet file.
+- [Hive
+  partitioned](https://duckdb.org/docs/current/data/partitioning/hive_partitioning)
+  Parquet files.
+- A directory with non-Parquet files (e.g. images) and a Parquet file that
+  connects these other files with the rest of the resources (e.g. with foreign
+  keys and paths to the files).
+
+We cover this in @sec-resources. The general structure of the `resources/`
+directory is shown below.
+
+```text
+resources/
+├── .gitignore # Don't track resources data
+├── <data-resource>.parquet
+├── <data-resource>/
+│   └── <id>.<extension> # For, e.g., image files
+└── <data-resource>/
+    └── <parquet-partition>/
+        └── part-<id>.parquet
+```
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+resources/
+  .gitignore # Don't track resources data
+  <data-resource>.parquet
+  <data-resource>/
+    <non-parquet>/
+      <id>.<extension> # For, e.g., image files
+  <data-resource>/
+    <parquet-partition>/
+      part-<id>.parquet
+```
+:::
+
+## `releases/` build artifacts
+
+The `releases/` directory contains the build artifacts for the data package,
+which we cover in @sec-build and in @sec-release. This directory should be
+ignored by Git as these artifacts are built from the source code and raw data,
+and could also be quite large. These files can also be regenerated by going into
+the Git tag and rebuilding the package to create these artifacts. These files
+are created to upload to an archive (e.g. Zenodo or GitHub releases) or for
+easier sharing.
+
+```text
+releases/
+├── .gitignore # Don't track releases
+├── <package-name>_<version>.tar
+└── <package-name>_<version>.zip
+```
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+releases/
+  .gitignore # Don't track releases
+  <package-name>_<version>.tar
+  <package-name>_<version>.zip
+```
+:::
+
+## `docs/` documentation
+
+This directory contains the documentation for the data package as well as the
+content for the website. It is not only for showing the metadata in a
+human-friendly way, but also for documenting details about the package itself,
+how it was made, any contributing or operational details, and how to request for
+data. It can also contain information about who uses the data and how it is
+being used (e.g. from those requesting data). We strongly recommend that this
+documentation is built into a website, using a tool like
+[Quarto](https://quarto.org/). If it is published as a website, some files are
+required to be present in the `docs/` directory, such as `index.qmd` files. Of
+the directories described in this chapter, this is the only one that has no
+specific structure to follow. We'll cover documentation more in @sec-docs. A
+basic structure for `docs/` might look like the following (if rendering the
+metadata into the website):
+
+```text
+docs/
+├── index.qmd
+├── metadata/
+│   ├── index.qmd
+│   └── <resource>.qmd
+└── requests/
+    ├── index.html
+    └── wasm/
+```
+
+The `docs/metadata/` directory would contain the converted metadata from
+machine-readable to human-readable, e.g., using our tool
+[Flower](https://flower.seedcase-project.org). Other than that, you are free to
+organise the documentation in any way that makes sense for your data package.
+
+The `docs/requests/` directory contains the web application from
+[Propagate](https://propagate.seedcase-project.org/) that allows researchers to
+make requests of the data by filling in a form. This form creates a
+machine-readable set of instructions for creating a subset that they need. The
+files within this directory are HTML and
+[WebAssembly](https://webassembly.org/), which are inserted into the website as
+their own web pages. We'll describe this more in @sec-requests.
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+docs/
+  index.qmd
+  metadata/
+    index.qmd
+    <resource>.qmd
+  requests/
+    index.html
+    wasm/
+```
+:::
+
+## `requests/` (optional)
+
+This directory contains any requests that data package owners receive for
+obtaining subsets of the data package. These requests are created from our tool
+[Propagate](https://propagate.seedcase-project.org/) and are stored in the
+`requests/` directory. Each individual request also contains the data subset,
+though it isn't tracked by Git. The structure of this directory is shown below.
+We go over requests in @sec-requests and subsets in @sec-subsets. See
+[Propagate](https://propagate.seedcase-project.org/) for more details on how to
+make requests and subset data.
+
+```text
+requests/
+└── <project-name>/
+    ├── request.yaml
+    └── subset/
+        ├── .gitignore # Don't track subset data
+        └── <project-name>-<date-modified>.tar
+```
+
+The `<project-name>` is the name of the research project that someone is doing,
+and who wants to use a subset of the data package for that project.
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+requests/
+  <project-name>/
+    request.yaml
+    subset/
+      .gitignore # Don't track subset data
+      <project-name>-<date-modified>.tar
+```
+:::
+
+## `.github/` (optional)
+
+This directory may not exist if you don't develop the data package on GitHub (or
+a similar service). We strongly recommend that you do, as it allows for much
+easier collaboration and development of the data package. It also makes it
+easier to build, release, and publish the data package, even if only the
+metadata is published. Other services (like Codeberg or GitLab) have similar
+features to GitHub, but because GitHub is so widely used and popular, we focus
+on using it in this book. We cover this directory in @sec-ci, @sec-devex, and
+partially in @sec-release. The structure of this directory is shown below:
+
+```text
+.github/
+├── workflows/
+│   ├── checks.yml
+│   ├── build-website.yml
+│   └── release.yml # Optional
+└── <other-files>
+```
+
+The `workflows/` directory contains the GitHub Actions workflows that are used
+to build, check, and (optionally) release the data package. If the data is
+subject to any legal or privacy restrictions, the `release.yml` workflow won't
+be used. The `<other-files>` are any other files that GitHub may use and that
+are helpful to development, such as a `CODEOWNERS` file.
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+.github/
+  workflows/
+    checks.yml
+    build-website.yml
+    release.yml # Optional
+  <other-files>
+```
+:::
+
+## `.config/`
+
+This directory contains all the configuration files used for the data package.
+For example, since we recommend using
+[Cocogitto](https://decisions.seedcase-project.org/why-semantic-release-with-cocogitto/)
+and
+[git-cliff](https://decisions.seedcase-project.org/why-changelog-with-git-cliff/)
+for the release process, the configuration files for those tools should be kept
+in this directory. Storing them in this directory keeps the root directory
+cleaner and organises the configuration files in one place. It also follows the
+XDG [`.config/`](https://dot-config.github.io) specification. We go over the
+`.config/` directory in several sections, such as @sec-devex and @sec-config.
+The directory structure is pretty simple, as it is a flat (non-nested) directory
+with only configuration files:
+
+```text
+.config/
+└── <config-files>
+```
+
+::: content-hidden
+The tree above was created using the below with this website
+<https://tree.nathanfriend.com>:
+
+```text
+.config/
+  <config-files>
+```
+:::
