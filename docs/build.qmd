@@ -156,8 +156,6 @@ generate, for example, a [DOI](https://doi.org/) on
 The `.tar` and `.zip` files are saved into a `releases/` directory ignored by
 Git.
 
-<!-- TODO: Do we want to store these files? Others? -->
-
 ## Development practices
 
 How does this build process impact developing the data package and the
