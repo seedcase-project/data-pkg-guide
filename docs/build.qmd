@@ -22,7 +22,8 @@ At a high level, the directories and files involved in the build process are
 ├── src/
 │   └── <package_name>/
 │       ├── __init__.py
-│       └── build.py
+│       ├── build_raw.py
+│       └── build_staging.py
 ├── <metadata-format>.<extension>
 ├── CHANGELOG.md
 ├── README.md
@@ -47,7 +48,7 @@ Why do we "build" a data package?
 
 The initial steps, from the source of the data to staging, is managed by a
 pipeline management tool, which should have its pipeline defined in
-`src/<package_name>/build.py` (though some pipeline tools require a different
+`src/<package_name>/build_*.py` (though some pipeline tools require a different
 filename). We recommend using
 [pytask](https://pytask-dev.readthedocs.io/en/stable/), which we've found works
 well for developing data packages (for more details, see our [pytask for Python
@@ -55,13 +56,18 @@ workflow management](https://decisions.seedcase-project.org/why-pytask/)
 decision post). All steps must be defined within this tool, from pulling the
 source data to `raw/`, to processing the raw data into `staging/`, and to
 processing or extracting any metadata obtained from the source or staged data.
+Because data saved into `raw/` is committed in separate pull requests (described
+more below and in @sec-release), there should be two build steps: downloading
+data from source locations to `raw/` and taking the data in `raw/` and
+processing it into `staging/`. We suggest calling these files `build_raw.py` and
+`build_staging.py`, so that they can be run independently of each other.
 
 The steps after `staging/` are managed mainly by
 [Sprout](https://sprout.seedcase-project.org/), which is our tool to handle the
 processing from `staging/` to `resources/` and for (re-)generating the metadata
 file.
 
-The final steps for building the data package into `.tar` and `.zip` files are
+All the steps for building the data package into `.tar` and `.zip` files are
 handled through the [`justfile`](https://just.systems/) file, which would be
 (one of) the `<build-files>` in the above directory structure. The `justfile`,
 if you use our [template data
