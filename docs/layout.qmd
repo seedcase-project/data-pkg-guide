@@ -166,7 +166,8 @@ src/
     ├── common/
     │   └── __init__.py
     ├── __init__.py
-    └── build.py
+    ├── build_raw.py
+    └── build_staging.py
 ```
 
 - The `<package_name>` is the name of the Python package that is used to build
@@ -178,8 +179,8 @@ src/
   Python code by the source of the data and the eventual resource name.
 - The `common/` directory contains Python code that is used across multiple
   sources and resources.
-- The `build.py` file contains the build tasks that are used to build the data
-  package.
+- The `build_raw.py` and `build_staging.py` files contain the build tasks that
+  are used to build the data package.
 - The `core.py` files within the subdirectories contain functions that are used
   across specific sources and/or resources.
 
@@ -207,7 +208,8 @@ src/
     common/
       __init__.py
     __init__.py
-    build.py
+    build_raw.py
+    build_staging.py
 ```
 :::
 
