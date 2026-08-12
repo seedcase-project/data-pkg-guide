@@ -19,6 +19,19 @@ releases we've made so far, along with what was changed within each release.
 Commits from bots, like `dependabot` or `pre-commit-ci`, are not included in the
 changelog.
 
+## [0.2.0](https://github.com/seedcase-project/data-pkg-guide/compare/0.1.0..0.2.0) - 2026-08-12
+
+### ✨ Features
+
+- Add release process chapter
+  [#8](https://github.com/seedcase-project/data-pkg-guide/pull/8) by
+  [`@lwjohnst86`](https://github.com/lwjohnst86)
+  ([3f4aba1](https://github.com/seedcase-project/data-pkg-guide/commit/3f4aba1697ab2de96520ba54084fc4e2b4f07367))
+
+### ❤️ New contributors
+
+- `@pre-commit-ci[bot]` started making automated contributions
+
 ## [0.1.0] - 2026-07-13
 
 ### ✨ Features
@@ -102,5 +115,8 @@ changelog.
 
 ### ❤️ New contributors
 
+- `@github-actions[bot]` started making automated contributions
+
 - [`@lwjohnst86`](https://github.com/lwjohnst86) made their first contribution
+
 - `@dependabot[bot]` started making automated contributions
