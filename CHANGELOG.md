@@ -19,6 +19,19 @@ releases we've made so far, along with what was changed within each release.
 Commits from bots, like `dependabot` or `pre-commit-ci`, are not included in the
 changelog.
 
+## [0.3.0](https://github.com/seedcase-project/data-pkg-guide/compare/0.2.0..0.3.0) - 2026-08-12
+
+### ✨ Features
+
+- Add Layout chapter for structure of package
+  [#9](https://github.com/seedcase-project/data-pkg-guide/pull/9) by
+  [`@lwjohnst86`](https://github.com/lwjohnst86)
+  ([ddca4f6](https://github.com/seedcase-project/data-pkg-guide/commit/ddca4f647a274caff0df72d19c6caeb1ef2e972b))
+- Add build process chapter
+  [#7](https://github.com/seedcase-project/data-pkg-guide/pull/7) by
+  [`@lwjohnst86`](https://github.com/lwjohnst86)
+  ([23b7744](https://github.com/seedcase-project/data-pkg-guide/commit/23b7744146f6d4ea8887ab076fd987896e276f2e))
+
 ## [0.2.0](https://github.com/seedcase-project/data-pkg-guide/compare/0.1.0..0.2.0) - 2026-08-12
 
 ### ✨ Features
