@@ -17,6 +17,9 @@ book:
   favicon: "_extensions/seedcase-project/seedcase-theme/logos/seedcase/icon.svg"
   search:
     type: textbox
+  navbar:
+    title: "Data package guide"
+    pinned: true
   chapters:
     - index.qmd
     - part: "Overview"
