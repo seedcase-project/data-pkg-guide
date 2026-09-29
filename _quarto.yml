@@ -20,6 +20,9 @@ book:
   navbar:
     title: "Data package guide"
     pinned: true
+    right:
+      - text: "<img src='/_extensions/seedcase-project/seedcase-theme/logos/seedcase/a-part-of.svg' alt='Main Seedcase website' height='30px'>"
+        href: "https://seedcase-project.org"
   chapters:
     - index.qmd
     - part: "Overview"
