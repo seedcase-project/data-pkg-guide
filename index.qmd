@@ -10,18 +10,18 @@ work on it slowly and when we can.
 :::
 
 There are little to no resources available online on how to develop data as a
-package similar to developing software as a package, e.g. [R
-packages](https://r-pkgs.org/), [Python
-packages](https://packaging.python.org/), or [Rust
-packages](https://doc.rust-lang.org/cargo/). There are many resources on how to
-build data warehouses or data lakes/lakehouses, along with many enterprise-level
-tools and platforms to build them. However, these are often overengineered and
-excessively complicated for the needs within science and research. This guide is
-an attempt at providing a practical how-to guide on treating data with a
-"package" mindset. We walk through how to build up data following practices from
-the software package development cycle so that the final "data package" (or
-"data product") is findable, accessible, interoperable, and reusable
-([FAIR](https://www.go-fair.org/fair-principles/)) and
+package similar to developing software as a package, e.g.
+[R packages](https://r-pkgs.org/),
+[Python packages](https://packaging.python.org/), or
+[Rust packages](https://doc.rust-lang.org/cargo/). There are many resources on
+how to build data warehouses or data lakes/lakehouses, along with many
+enterprise-level tools and platforms to build them. However, these are often
+overengineered and excessively complicated for the needs within science and
+research. This guide is an attempt at providing a practical how-to guide on
+treating data with a "package" mindset. We walk through how to build up data
+following practices from the software package development cycle so that the
+final "data package" (or "data product") is findable, accessible, interoperable,
+and reusable ([FAIR](https://www.go-fair.org/fair-principles/)) and
 [tidy](https://doi.org/10.18637/jss.v059.i10).
 
 ::: {.callout-note appearance="default"}
@@ -76,8 +76,8 @@ Zenodo archive.
 The website and PDF (download link on the top of the website's sidebar) are
 created using [Quarto](https://quarto.org) to write the material and create the
 book format. [GitHub](https://github.com/) hosts the [Git](https://git-scm.com/)
-repository of the material, while [GitHub
-Actions](https://github.com/features/actions) builds and releases the book with
-every change. [Netlify](https://www.netlify.com/) hosts the website and manages
-the domain. The source material is in the
+repository of the material, while
+[GitHub Actions](https://github.com/features/actions) builds and releases the
+book with every change. [Netlify](https://www.netlify.com/) hosts the website
+and manages the domain. The source material is in the
 [`{{< meta gh.repo >}}`]({{< meta links.github >}}) GitHub repository.

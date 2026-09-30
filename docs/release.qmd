@@ -33,30 +33,30 @@ secure server) and *what triggers* a release. We'll start with the triggers.
 
 There are a few ways to trigger the release process: manually, on a schedule, or
 based on specific events whenever a change is merged into `main`. While we aim
-to practice [continuous
-delivery](https://en.wikipedia.org/wiki/Continuous_delivery) when we're able to,
-this isn't always the case for more complicated situations. For data that falls
-under legal regulations, you likely will need to use either a manual process or
-a schedule-based one by running a [cron job](https://en.wikipedia.org/wiki/Cron)
-on the server. For non-private data, you can use the merge/push-based process by
-using a GitHub workflow.
+to practice
+[continuous delivery](https://en.wikipedia.org/wiki/Continuous_delivery) when
+we're able to, this isn't always the case for more complicated situations. For
+data that falls under legal regulations, you likely will need to use either a
+manual process or a schedule-based one by running a
+[cron job](https://en.wikipedia.org/wiki/Cron) on the server. For non-private
+data, you can use the merge/push-based process by using a GitHub workflow.
 
 Regardless of the underlying trigger, the actual release process is the same: a
 release is created based on specific text within the commit messages. Using
-commit messages to determine a release is called [semantic
-release](https://decisions.seedcase-project.org/why-semantic-release-with-cocogitto/),
-which uses [Semantic
-Versioning](https://decisions.seedcase-project.org/why-semver/index.html) and
-[Conventional
-Commits](https://decisions.seedcase-project.org/why-conventional-commits/) as
-its foundation.
+commit messages to determine a release is called
+[semantic release](https://decisions.seedcase-project.org/why-semantic-release-with-cocogitto/),
+which uses
+[Semantic Versioning](https://decisions.seedcase-project.org/why-semver/index.html)
+and
+[Conventional Commits](https://decisions.seedcase-project.org/why-conventional-commits/)
+as its foundation.
 
 ### Commits
 
 In order to determine whether changes should result in a release, commits must
-follow [Conventional
-Commits](https://decisions.seedcase-project.org/why-conventional-commits/) to
-structure the commit messages. The structure of a commit message looks like
+follow
+[Conventional Commits](https://decisions.seedcase-project.org/why-conventional-commits/)
+to structure the commit messages. The structure of a commit message looks like
 this:
 
 ```text
@@ -88,8 +88,9 @@ the `MAJOR` version is increased.
 But how do you know which commit type to use? Unlike software development,
 developing data packages is quite different and it can be a bit more difficult
 to determine what a "feature", "fix", or "breaking change" is. To help determine
-the commit "type", we use aspects of [Data Package's semantic
-versioning](https://datapackage.org/recipes/data-package-version/) guide.
+the commit "type", we use aspects of
+[Data Package's semantic versioning](https://datapackage.org/recipes/data-package-version/)
+guide.
 
 Breaking changes with the `<type>!` or `BREAKING CHANGE` in the footer format
 *must only* happen after the first stable release of the data package. The first

@@ -9,8 +9,8 @@ of these in detail. Each section in this chapter will cover a specific directory
 in the package. For details about the different tools we mention in this
 chapter, see @sec-tools.
 
-While the specific programming language doesn't *strictly* matter, we [use
-Python](https://decisions.seedcase-project.org/why-python-for-data-engineering/)
+While the specific programming language doesn't *strictly* matter, we
+[use Python](https://decisions.seedcase-project.org/why-python-for-data-engineering/)
 for developing data packages. Because of that, we'll use Python in the guide,
 which means that there are some files and directories that are specific to and
 required for Python projects.
@@ -313,8 +313,7 @@ included in the data package and is what users of the data package will use.
 Each resource either has:
 
 - An individual Parquet file.
-- [Hive
-  partitioned](https://duckdb.org/docs/current/data/partitioning/hive_partitioning)
+- [Hive partitioned](https://duckdb.org/docs/current/data/partitioning/hive_partitioning)
   Parquet files.
 - A directory with non-Parquet files (e.g. images) and a Parquet file that
   connects these other files with the rest of the resources (e.g. with foreign
