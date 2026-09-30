@@ -51,8 +51,8 @@ pipeline management tool, which should have its pipeline defined in
 `src/<package_name>/build_*.py` (though some pipeline tools require a different
 filename). We recommend using
 [pytask](https://pytask-dev.readthedocs.io/en/stable/), which we've found works
-well for developing data packages (for more details, see our
-[pytask for Python workflow management](https://decisions.seedcase-project.org/why-pytask/)
+well for developing data packages (for more details, see our [pytask for Python
+workflow management](https://decisions.seedcase-project.org/why-pytask/)
 decision post). All steps must be defined within this tool, from pulling the
 source data to `raw/`, to processing the raw data into `staging/`, and to
 processing or extracting any metadata obtained from the source or staged data.
@@ -70,9 +70,9 @@ file.
 All the steps for building the data package into `.tar` and `.zip` files are
 handled through the [`justfile`](https://just.systems/) file, which would be
 (one of) the `<build-files>` in the above directory structure. The `justfile`,
-if you use our
-[template data package](https://template-data-package.seedcase-project.org/),
-contains recipes for each step of the build process.
+if you use our [template data
+package](https://template-data-package.seedcase-project.org/), contains recipes
+for each step of the build process.
 
 If the data package is based on open data or on data not covered by legal
 restrictions (e.g. GDPR), the build and release process can be automated through
@@ -103,9 +103,9 @@ flowchart TB
 
 ::: callout-note
 We plan on building a tool to automate and simplify the build steps, but for
-now, you can use the structure and tools that we've set up in our
-[Template Data Package](https://template-data-package.seedcase-project.org/).
-See @sec-setup for details about that.
+now, you can use the structure and tools that we've set up in our [Template Data
+Package](https://template-data-package.seedcase-project.org/). See @sec-setup
+for details about that.
 :::
 
 ::: callout-important
@@ -143,9 +143,9 @@ At this stage, [Sprout](https://sprout.seedcase-project.org/) can take over and
 process the data from `staging/` into `resources/`. All the timestamped files in
 the individual `staging/` resource directories are processed and joined into a
 single resource file in `resources/`. During processing, the data is checked
-against the metadata. See @sec-resources, @sec-metadata, and
-[Sprout's documentation](https://sprout.seedcase-project.org/) for more details
-on this step.
+against the metadata. See @sec-resources, @sec-metadata, and [Sprout's
+documentation](https://sprout.seedcase-project.org/) for more details on this
+step.
 
 ### Metadata (re-)generation (optional)
 
