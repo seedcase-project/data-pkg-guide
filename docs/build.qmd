@@ -10,7 +10,7 @@ packaged format.
 At a high level, the directories and files involved in the build process are
 (non-relevant files and directories are removed):
 
-```
+```text
 <package-name>/
 ├── .github/
 │   └── workflows/
