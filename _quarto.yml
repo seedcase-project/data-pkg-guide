@@ -37,6 +37,7 @@ book:
         - docs/staging.qmd
         - docs/resources.qmd
         - docs/metadata.qmd
+        - docs/docs.qmd
     - part: "Lifecycle"
       chapters:
         - docs/ci.qmd
