@@ -19,6 +19,39 @@ releases we've made so far, along with what was changed within each release.
 Commits from bots, like `dependabot` or `pre-commit-ci`, are not included in the
 changelog.
 
+## [0.3.1](https://github.com/seedcase-project/data-pkg-guide/compare/0.3.0..0.3.1) - 2026-10-01
+
+### 🐛 Fixes
+
+- Add `docs.qmd` to chapters in Quarto config, so cross refs work
+  [#41](https://github.com/seedcase-project/data-pkg-guide/pull/41) by
+  [`@signekb`](https://github.com/signekb)
+  ([21c1575](https://github.com/seedcase-project/data-pkg-guide/commit/21c1575b429600fd2b048b1966492cfa37272ca8))
+
+### 💄 Styling
+
+- Update Seedcase Quarto theme
+  [#33](https://github.com/seedcase-project/data-pkg-guide/pull/33) by
+  [`@lwjohnst86`](https://github.com/lwjohnst86)
+  ([32ea5f4](https://github.com/seedcase-project/data-pkg-guide/commit/32ea5f45fa9b0be4d25808163d717e5a47fec9ad))
+- Update Quarto theme
+  [#35](https://github.com/seedcase-project/data-pkg-guide/pull/35) by
+  [`@lwjohnst86`](https://github.com/lwjohnst86)
+  ([a9be0e1](https://github.com/seedcase-project/data-pkg-guide/commit/a9be0e13793ffaebf1963af924e127b2e60a2e72))
+- Add pinned navbar with "A part of Seedcase" icon
+  [#34](https://github.com/seedcase-project/data-pkg-guide/pull/34) by
+  [`@signekb`](https://github.com/signekb)
+  ([652e403](https://github.com/seedcase-project/data-pkg-guide/commit/652e40323d462fc8e887e657e35c622d295e643f))
+- Format `.qmd`
+  [#37](https://github.com/seedcase-project/data-pkg-guide/pull/37) by
+  [`@signekb`](https://github.com/signekb)
+  ([eeac18f](https://github.com/seedcase-project/data-pkg-guide/commit/eeac18f0c18fabf30e0b9e715e622ec7dfaf600c))
+
+### ❤️ New contributors
+
+- [`@signekb`](https://github.com/signekb) made their first contribution in
+  [#41](https://github.com/seedcase-project/data-pkg-guide/pull/41)
+
 ## [0.3.0](https://github.com/seedcase-project/data-pkg-guide/compare/0.2.0..0.3.0) - 2026-08-12
 
 ### ✨ Features
